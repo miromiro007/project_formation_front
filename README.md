@@ -1,27 +1,29 @@
-# ProjectFormationFront
+# Project Formation Front
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+## État du projet
 
-## Development server
+Le projet est en cours de développement. Les fonctionnalités principales d’authentification sont implémentées et fonctionnelles. L’interface utilise Angular avec un système de routing modulaire.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Fonctionnalités réalisées
 
-## Code scaffolding
+- **Inscription** : Création de compte utilisateur via le formulaire d’inscription.
+- **Connexion** : Authentification avec vérification du token et redirection automatique si l’utilisateur est déjà connecté.
+- **Mot de passe oublié** : Formulaire pour demander la réinitialisation du mot de passe.
+- **Validation de code** : Saisie et validation d’un code reçu par email pour réinitialiser le mot de passe.
+- **Gestion des routes** : Navigation entre les pages d’authentification.
+- **Intercepteur HTTP** : Ajout automatique du token d’authentification dans les requêtes.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Travail restant à faire
 
-## Build
+- **Dashboard** : Créer le composant Dashboard et sa route associée.
+- **Gestion des erreurs avancée** : Améliorer l’affichage et la gestion des messages d’erreur.
+- **Tests unitaires** : Ajouter des tests pour les composants et services.
+- **Sécurité** : Protéger les routes sensibles avec des guards.
+- **Amélioration UI/UX** : Ajouter du style et améliorer l’ergonomie des formulaires.
+- **Documentation** : Compléter la documentation technique et utilisateur.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+N’hésitez pas à compléter cette liste selon l’évolution du projet.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
