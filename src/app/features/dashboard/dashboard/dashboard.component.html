@@ -1,0 +1,15 @@
+<div *ngIf="userRole === 'admin'">
+  <h2>Bienvenue Admin</h2>
+  <!-- Contenu réservé aux admins -->
+  <p>Gestion des utilisateurs, création des formations, etc.</p>
+</div>
+
+<div *ngIf="userRole === 'employe'">
+  <h2>Bienvenue Employé</h2>
+  <!-- Contenu réservé aux employés -->
+  <p>Consultation des formations, réservations, etc.</p>
+</div>
+
+<div *ngIf="!userRole">
+  <p>Chargement des informations utilisateur...</p>
+</div>

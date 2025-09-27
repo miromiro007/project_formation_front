@@ -1,0 +1,32 @@
+<h2>Liste des formations</h2>
+
+<div>
+  <label>Titre :</label>
+  <input [(ngModel)]="filterTitre" />
+  <label>Domaine :</label>
+  <input [(ngModel)]="filterDomaine" />
+  <button (click)="onFilter()">Filtrer</button>
+
+  <button (click)="goToCreate()">Créer une formation</button>
+</div>
+
+<ul>
+  <li *ngFor="let formation of formations">
+    {{ formation.titre }} - {{ formation.domaine }}
+    <button (click)="showDetails(formation)">Voir détails</button>
+    <button (click)="goToEdit(formation.id)">Modifier</button>
+  </li>
+</ul>
+
+<!-- Popup détails -->
+<div *ngIf="selectedFormation" class="modal-overlay" (click)="closeDetails()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>{{ selectedFormation.titre }}</h3>
+    <p><strong>Domaine :</strong> {{ selectedFormation.domaine }}</p>
+    <p><strong>Description :</strong> {{ selectedFormation.description }}</p>
+    <p><strong>Date début :</strong> {{ selectedFormation.dateDebut }}</p>
+    <p><strong>Date fin :</strong> {{ selectedFormation.dateFin }}</p>
+    <p><strong>Places :</strong> min {{ selectedFormation.minPlace }}, max {{ selectedFormation.maxPlace }}</p>
+    <button (click)="closeDetails()">Fermer</button>
+  </div>
+</div>

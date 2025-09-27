@@ -1,0 +1,57 @@
+src/
+│
+├── app/
+│   ├── core/                       # Services globaux, interceptors, guards, modèles, utilitaires
+│   │   ├── services/
+│   │   │   ├── auth.service.ts
+│   │   │   ├── user.service.ts
+│   │   │   ├── formation.service.ts
+│   │   │   ├── reservation.service.ts
+│   │   ├── guards/
+│   │   │   ├── auth.guard.ts           # Protection des routes
+│   │   │   ├── role.guard.ts           # Restriction par rôle (admin/employé)
+│   │   ├── interceptors/
+│   │   │   ├── token.interceptor.ts    # Ajout JWT aux requêtes HTTP
+│   │   ├── models/
+│   │   │   ├── user.model.ts
+│   │   │   ├── formation.model.ts
+│   │   │   ├── reservation.model.ts
+│   │   ├── core.module.ts              # Importation unique pour les services singleton
+│
+│   ├── features/
+│   │   ├── auth/                      # Connexion, inscription, mot de passe oublié
+│   │   │   ├── login/
+│   │   │   ├── register/
+│   │   │   ├── forgot-password/
+│   │   │   ├── auth-routing.module.ts
+│   │   │   ├── auth.module.ts
+│   │   ├── users/                     # Gestion de profils utilisateurs (admin + employé)
+│   │   │   ├── user-list/
+│   │   │   ├── user-profile/
+│   │   │   ├── user-update/
+│   │   │   ├── users-routing.module.ts
+│   │   │   ├── users.module.ts
+│   │   ├── formations/                # Listing, création, édition, suppression formations (admin)
+│   │   │   ├── formation-list/
+│   │   │   ├── formation-create/
+│   │   │   ├── formation-edit/
+│   │   │   ├── formations-routing.module.ts
+│   │   │   ├── formations.module.ts
+│   │   ├── reservations/              # Réservations (ajout, modification statut)
+│   │   │   ├── reservation-list/
+│   │   │   ├── reservation-create/
+│   │   │   ├── reservations-routing.module.ts
+│   │   │   ├── reservations.module.ts
+│
+│   ├── shared/                       # Composants, pipes, directives réutilisables
+│   │   ├── components/
+│   │   ├── pipes/
+│   │   ├── directives/
+│   │   ├── shared.module.ts
+│
+│   ├── app-routing.module.ts         # Routes principales regroupant tous les modules enfants
+│   ├── app.component.ts
+│   └── app.module.ts
+│
+├── assets/
+├── environments/

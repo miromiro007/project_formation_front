@@ -1,0 +1,31 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" [class.invalid]="submitted && f['email'].errors" />
+      <div *ngIf="submitted && f['email'].errors" class="error">
+        <div *ngIf="f['email'].errors['required']">L’email est requis.</div>
+        <div *ngIf="f['email'].errors['email']">Format d’email invalide.</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Mot de passe</label>
+      <input id="password" type="password" formControlName="password" [class.invalid]="submitted && f['password'].errors" />
+      <div *ngIf="submitted && f['password'].errors" class="error">
+        <div *ngIf="f['password'].errors['required']">Le mot de passe est requis.</div>
+      </div>
+    </div>
+
+    <button type="submit">Se connecter</button>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </form>
+
+  <!-- Ajoutez ces boutons sous le formulaire de connexion -->
+<div class="login-actions">
+  <button type="button" (click)="goToRegister()">S'inscrire</button>
+  <button type="button" (click)="openForgotPasswordPage()">Mot de passe oublié</button>
+</div>
+
+</div>

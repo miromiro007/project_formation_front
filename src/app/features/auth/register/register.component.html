@@ -1,0 +1,46 @@
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+    <div>
+      <label for="nom">Nom complet</label>
+      <input id="nom" formControlName="nom" [class.invalid]="submitted && f['nom'].errors" />
+      <div *ngIf="submitted && f['nom'].errors" class="error">
+        Le nom est requis.
+      </div>
+    </div>
+
+    <div>
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" [class.invalid]="submitted && f['email'].errors" />
+      <div *ngIf="submitted && f['email'].errors" class="error">
+        <div *ngIf="f['email'].errors['required']">L’email est requis.</div>
+        <div *ngIf="f['email'].errors['email']">Le format d’email est invalide.</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" formControlName="password" [class.invalid]="submitted && f['password'].errors" />
+      <div *ngIf="submitted && f['password'].errors" class="error">
+        <div *ngIf="f['password'].errors['required']">Le mot de passe est requis.</div>
+        <div *ngIf="f['password'].errors['minlength']">Minimum 6 caractères requis.</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="role">Rôle</label>
+      <select id="role" formControlName="role" [class.invalid]="submitted && f['role'].errors">
+        <option value="" disabled>Sélectionner un rôle</option>
+        <option value="employe">Employé</option>
+        <option value="admin">Admin</option>
+      </select>
+      <div *ngIf="submitted && f['role'].errors" class="error">
+        Le rôle est requis.
+      </div>
+    </div>
+
+    <button type="submit">S’inscrire</button>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  </form>
+</div>

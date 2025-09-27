@@ -1,0 +1,36 @@
+<div class="validate-container">
+  <form [formGroup]="validateForm" (ngSubmit)="onSubmit()" novalidate>
+    <div>
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        [class.invalid]="submitted && f['email'].errors"
+      />
+      <div *ngIf="submitted && f['email'].errors" class="error">
+        <div *ngIf="f['email'].errors['required']">L’email est requis.</div>
+        <div *ngIf="f['email'].errors['email']">Le format d’email est invalide.</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="code">Code de validation</label>
+      <input
+        id="code"
+        type="text"
+        formControlName="code"
+        [class.invalid]="submitted && f['code'].errors"
+      />
+      <div *ngIf="submitted && f['code'].errors" class="error">
+        Le code de validation est requis.
+      </div>
+    </div>
+
+    <button type="submit">Valider le code</button>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  </form>
+</div>
+

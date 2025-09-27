@@ -1,0 +1,27 @@
+<div>
+  <h2>Créer une formation</h2>
+  <p *ngIf="errorMsg" style="color:red">{{ errorMsg }}</p>
+
+  <label>Titre :</label>
+  <input type="text" [(ngModel)]="titre" />
+
+  <label>Domaine :</label>
+  <input type="text" [(ngModel)]="domaine" />
+
+  <label>Description :</label>
+  <textarea [(ngModel)]="description"></textarea>
+
+  <label>Date début :</label>
+  <input type="date" [(ngModel)]="dateDebut" />
+
+  <label>Date fin :</label>
+  <input type="date" [(ngModel)]="dateFin" />
+
+  <label>Places minimales :</label>
+  <input type="number" [(ngModel)]="minPlace" min="1" />
+
+  <label>Places maximales :</label>
+  <input type="number" [(ngModel)]="maxPlace" min="1" />
+
+  <button (click)="onSubmit()">Créer</button>
+</div>
