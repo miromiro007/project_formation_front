@@ -1,15 +1,92 @@
-<div *ngIf="userRole === 'admin'">
-  <h2>Bienvenue Admin</h2>
-  <!-- Contenu réservé aux admins -->
-  <p>Gestion des utilisateurs, création des formations, etc.</p>
+<div class="dashboard-page" *ngIf="!loadingUser; else loadingTemplate">
+
+  <div class="dashboard-container">
+
+    <!-- Menu gauche -->
+    <div class="dashboard-menu">
+      <div class="menu-sections">
+        <button class="dashboard-btn"
+                [class.active]="activeSection === 'formations'"
+                (click)="setActiveSection('formations')">
+          <i class="bi bi-journal-bookmark"></i>
+          {{ userRole === 'employe' ? 'Mes Formations' : 'Formations' }}
+        </button>
+        <button class="dashboard-btn"
+                [class.active]="activeSection === 'reservations'"
+                (click)="setActiveSection('reservations')">
+          <i class="bi bi-calendar-check"></i>
+          {{ userRole === 'employe' ? 'Mes Réservations' : 'Réservations' }}
+        </button>
+        <button *ngIf="userRole === 'admin'" class="dashboard-btn"
+                [class.active]="activeSection === 'utilisateurs'"
+                (click)="setActiveSection('utilisateurs')">
+          <i class="bi bi-people"></i> Utilisateurs
+        </button>
+      </div>
+
+      <div class="menu-actions">
+        <button class="dashboard-btn" (click)="toggleEditProfile()">
+          <i class="bi bi-person-circle"></i> Modifier profil
+        </button>
+        <button class="dashboard-btn logout-btn" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i> Déconnexion
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="dashboard-content">
+
+      <!-- Message d'état compte -->
+      <div *ngIf="statutMessage" class="alert alert-danger">
+        <h3>Accès restreint</h3>
+        <p>{{ statutMessage }}</p>
+      </div>
+
+      <!-- Formations -->
+      <div *ngIf="!statutMessage && activeSection === 'formations'" class="content-section active">
+        <ng-container *ngIf="userRole === 'admin'; else employeeFormations">
+          <app-formation-list></app-formation-list>
+        </ng-container>
+        <ng-template #employeeFormations>
+          <app-formation-list-employe></app-formation-list-employe>
+        </ng-template>
+      </div>
+
+      <!-- Réservations -->
+      <div *ngIf="!statutMessage && activeSection === 'reservations'" class="content-section active">
+        <ng-container *ngIf="userRole === 'admin'; else employeeReservations">
+          <app-reservation-list></app-reservation-list>
+        </ng-container>
+        <ng-template #employeeReservations>
+          <app-reservations-list-employe></app-reservations-list-employe>
+        </ng-template>
+      </div>
+
+      <!-- Utilisateurs (Admin seulement) -->
+      <div *ngIf="!statutMessage && activeSection === 'utilisateurs' && userRole === 'admin'" class="content-section active">
+        <app-user-list></app-user-list>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Panel Modifier Profil -->
+  <div *ngIf="showEditProfile" class="edit-profile-panel">
+    <app-edit-profile></app-edit-profile>
+    <button class="close-profile-btn" (click)="toggleEditProfile()">Fermer</button>
+  </div>
+
 </div>
 
-<div *ngIf="userRole === 'employe'">
-  <h2>Bienvenue Employé</h2>
-  <!-- Contenu réservé aux employés -->
-  <p>Consultation des formations, réservations, etc.</p>
-</div>
-
-<div *ngIf="!userRole">
-  <p>Chargement des informations utilisateur...</p>
-</div>
+<!-- Loading -->
+<ng-template #loadingTemplate>
+  <div class="loading-overlay">
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      Chargement des informations utilisateur...
+    </div>
+  </div>
+</ng-template>

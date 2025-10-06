@@ -1,0 +1,79 @@
+<div class="users-container">
+
+  <!-- === FILTRE UTILISATEURS === -->
+  <div class="filter-section glass">
+    <h2><i class="bi bi-funnel-fill"></i> Filtrer les utilisateurs</h2>
+    <div class="filter-grid">
+      <input placeholder="Nom" [(ngModel)]="filtre.nom" class="filter-input" />
+      <input placeholder="Email" [(ngModel)]="filtre.email" class="filter-input" />
+      <select [(ngModel)]="filtre.role" class="filter-select">
+        <option value="">Tous les rôles</option>
+        <option value="admin">Admin</option>
+        <option value="employe">Employé</option>
+      </select>
+      <button (click)="getUsers()" class="btn-filter glow-btn">
+        <i class="bi bi-search"></i> Rechercher
+      </button>
+    </div>
+  </div>
+
+  <!-- === CHARGEMENT ET MESSAGE === -->
+  <div *ngIf="loading" class="alert glow-alert info">
+    <i class="bi bi-hourglass-split"></i> Chargement...
+  </div>
+  <div *ngIf="message" class="alert glow-alert warning">
+    <i class="bi bi-exclamation-triangle-fill"></i> {{ message }}
+  </div>
+
+  <!-- === LISTE DES UTILISATEURS === -->
+  <div class="user-list">
+    <div *ngFor="let user of users" class="user-card hover-card">
+      <div class="user-header">
+        <i class="bi bi-person-circle"></i>
+        <div class="user-basic">
+          <h3>{{ user.nom }}</h3>
+          <p class="email">{{ user.email }}</p>
+        </div>
+      </div>
+
+      <div class="user-details">
+        <p><strong>Rôle :</strong> <span class="role">{{ user.role | titlecase }}</span></p>
+        <p><strong>Statut :</strong>
+          <span class="status-badge" [ngClass]="user.statut">{{ user.statut | titlecase }}</span>
+        </p>
+      </div>
+
+      <div class="user-actions">
+        <button (click)="changerStatut(user, user.statut === 'actif' ? 'inactif' : 'actif')"
+                class="btn-action warning">
+          <i class="bi bi-toggle-on"></i>
+          {{ user.statut === 'actif' ? 'Désactiver' : 'Activer' }}
+        </button>
+
+        <button (click)="validerCompte(user)" [disabled]="user.emailVerified"
+                class="btn-action success">
+          <i class="bi bi-check-circle"></i> Valider email
+        </button>
+
+        <button (click)="supprimer(user)" class="btn-action danger">
+          <i class="bi bi-trash"></i> Supprimer
+        </button>
+
+        <button (click)="voirProfil(user._id)" class="btn-action info">
+          <i class="bi bi-person-lines-fill"></i> Profil
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- === MODALE PROFIL === -->
+  <div *ngIf="selectedUser" class="modal-overlay" (click)="fermerProfil()">
+    <div class="modal-content glass" (click)="$event.stopPropagation()">
+      <app-user-profile [user]="selectedUser"></app-user-profile>
+      <button class="close-btn" (click)="fermerProfil()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+
+</div>

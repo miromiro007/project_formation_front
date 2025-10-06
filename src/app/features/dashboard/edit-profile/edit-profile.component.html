@@ -1,0 +1,19 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="edit-profile-form">
+
+  <label>Email</label>
+  <input formControlName="email" type="email" />
+  <div *ngIf="profileForm.controls['email'].invalid && profileForm.controls['email'].touched" style="color:red;">
+    Email invalide
+  </div>
+
+  <label>Nouveau mot de passe (facultatif)</label>
+  <input formControlName="newPassword" type="password" />
+
+  <label>Confirmer nouveau mot de passe</label>
+  <input formControlName="confirmPassword" type="password" />
+  <div *ngIf="profileForm.errors?.['invalid'] && profileForm.controls['confirmPassword'].touched" style="color:red;">
+    Les mots de passe ne correspondent pas
+  </div>
+
+  <button type="submit" class="update-profile-btn">Mettre à jour</button>
+</form>

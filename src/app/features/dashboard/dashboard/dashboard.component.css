@@ -1,0 +1,343 @@
+/* === Dashboard background === */
+.dashboard-page {
+  background:
+    linear-gradient(#0a0a0ae6, #141414f2),
+    url('../../../../assets/images/bg_logo.png') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+/* === Loading overlay === */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20,20,20,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  font-size: 1.2rem;
+  color: #ffb347;
+  animation: fadeIn 0.5s ease;
+}
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spinner {
+  border: 5px solid rgba(255,123,0,0.2);
+  border-top: 5px solid #ff7b00;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* === Container principal === */
+.dashboard-container {
+  display: flex;
+  width: 100%;
+  padding: 15px;
+  gap: 2rem;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* === Menu gauche === */
+.dashboard-menu {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 2rem;
+}
+
+.menu-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.dashboard-menu button {
+  height: 70px;
+  width: 100%;
+  background: linear-gradient(135deg, #ff7b00, #e96c00);
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* === Animation du soulignement fluide === */
+.dashboard-menu button::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 50%;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.dashboard-menu button.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.dashboard-menu button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(255,123,0,0.45);
+  color: black;
+}
+
+/* === Icônes === */
+.dashboard-menu button i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* === Actions (Profil / Logout) === */
+.menu-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: auto;
+}
+
+.menu-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 65px;
+  width: 100%;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Modifier profil */
+.menu-actions button:first-child {
+  background: #444;
+  color: #ff7b00;
+}
+
+.menu-actions button:first-child:hover {
+  background: #ff7b00;
+  color: #fff;
+  transform: scale(1.02);
+}
+
+/* Déconnexion */
+.menu-actions button:last-child {
+  background: #ff4d4d;
+  color: #fff;
+}
+
+.menu-actions button:last-child:hover {
+  background: #ff0000;
+  transform: scale(1.02);
+}
+
+/* === Contenu principal (scroll global ici) === */
+.dashboard-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255,123,0,0.25);
+  background: rgba(30,30,30,0.4);
+  height: 100%;
+  padding: 1rem 1.5rem;
+  overflow-y: hidden;     /* ✅ scroll sur tout le conteneur */
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+
+/* === Titre principal === */
+.dashboard-content h2 {
+  font-weight: 700;
+  color: #ffb347;
+  text-shadow: 0 0 15px rgba(255,123,0,0.4);
+  margin-bottom: 1.5rem;
+}
+
+/* === Section principale === */
+.content-section {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.content-section.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Animation panneau Modifier Profil === */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 100%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.edit-profile-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(25,25,25,0.95);
+  padding: 2rem;
+  border-radius: 25px;
+  box-shadow: 0 0 35px rgba(255,123,0,0.5);
+  z-index: 100;
+  animation: slideUp 0.5s ease forwards;
+}
+
+/* === Boutons du panneau profil === */
+.close-profile-btn,
+.update-profile-btn {
+  margin-top: 1.5rem;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 100, 0, 0.4);
+}
+
+.close-profile-btn {
+  background: linear-gradient(135deg, #ff4d00, #ff0000);
+  color: #fff;
+}
+
+.close-profile-btn:hover {
+  background: linear-gradient(135deg, #ff7b00, #ff3300);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 20px rgba(255, 100, 0, 0.6);
+  color: #000;
+}
+
+.update-profile-btn {
+  background: linear-gradient(135deg, #ff7b00, #e96c00);
+  color: #fff;
+}
+
+.update-profile-btn:hover {
+  background: linear-gradient(135deg, #ffa200, #ff7b00);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 20px rgba(255, 150, 0, 0.6);
+  color: #000;
+}
+
+/* === Boutons Dashboard latéraux === */
+.dashboard-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #ff7b00, #e96c00);
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dashboard-btn i {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.dashboard-btn:hover i {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.dashboard-btn:hover {
+  background: linear-gradient(135deg, #ffa200, #ff7b00);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 18px rgba(255, 150, 0, 0.6);
+  color: #000;
+}
+
+/* Bouton Déconnexion rouge */
+.logout-btn {
+  background: linear-gradient(135deg, #ff4d4d, #c0392b);
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.4);
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #ff6b6b, #e74c3c);
+  box-shadow: 0 0 18px rgba(255, 77, 77, 0.6);
+  color: #000;
+}
+
+/* Position fixe en bas à gauche */
+.dashboard-sidebar {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* === Composants internes === */
+app-formation-list,
+app-formation-list-employe,
+app-reservation-list,
+app-reservations-list-employe,
+app-user-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

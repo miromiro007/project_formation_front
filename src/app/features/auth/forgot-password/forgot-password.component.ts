@@ -10,20 +10,18 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent {
-  email: string = '';
-  code: string = '';
-  newPassword: string = '';
-  confirmPassword: string = '';
+  email = '';
+  code = '';
+  newPassword = '';
+  confirmPassword = '';
 
   step: 'requestCode' | 'validateCode' | 'resetPassword' = 'requestCode';
+  message = '';
+  error = '';
+  isLoading = false;
 
-  message: string = '';
-  error: string = '';
-  isLoading: boolean = false;
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private authService: AuthService,private router : Router) {}
-
-  // Étape 1 : Demander un code
   requestCode() {
     this.message = '';
     this.error = '';
@@ -36,14 +34,12 @@ export class ForgotPasswordComponent {
     this.isLoading = true;
     this.authService.forgotPassword(this.email).subscribe({
       next: (res) => {
-        console.log("Réponse forgot-password:", res);
         this.message = res.message || 'Un code a été envoyé à votre email.';
         this.error = '';
         this.isLoading = false;
-        this.step = 'validateCode';  // passer à l'étape suivante
+        this.step = 'validateCode';
       },
       error: (err) => {
-        console.error('Erreur forgot-password:', err);
         this.error = err.error?.message || 'Une erreur est survenue';
         this.message = '';
         this.isLoading = false;
@@ -51,7 +47,6 @@ export class ForgotPasswordComponent {
     });
   }
 
-  // Étape 2 : Valider le code
   validateCode() {
     this.message = '';
     this.error = '';
@@ -64,14 +59,12 @@ export class ForgotPasswordComponent {
     this.isLoading = true;
     this.authService.validateCode({ email: this.email, code: this.code }).subscribe({
       next: (res) => {
-        console.log("Réponse validate-code:", res);
         this.message = res.message || 'Code validé. Vous pouvez réinitialiser votre mot de passe.';
         this.error = '';
         this.isLoading = false;
-        this.step = 'resetPassword';  // passer à l'étape suivante
+        this.step = 'resetPassword';
       },
       error: (err) => {
-        console.error('Erreur validate-code:', err);
         this.error = err.error?.message || 'Code invalide ou expiré';
         this.message = '';
         this.isLoading = false;
@@ -79,7 +72,6 @@ export class ForgotPasswordComponent {
     });
   }
 
-  // Étape 3 : Réinitialiser le mot de passe
   resetPassword() {
     this.message = '';
     this.error = '';
@@ -92,6 +84,10 @@ export class ForgotPasswordComponent {
       this.error = 'Les mots de passe ne correspondent pas';
       return;
     }
+    if (this.newPassword.length < 8) {
+      this.error = 'Le mot de passe doit contenir au moins 8 caractères';
+      return;
+    }
 
     this.isLoading = true;
     this.authService.resetPassword({
@@ -101,22 +97,17 @@ export class ForgotPasswordComponent {
       confirmPassword: this.confirmPassword
     }).subscribe({
       next: (res) => {
-        console.log("Réponse reset-password:", res);
         this.message = res.message || 'Mot de passe réinitialisé avec succès.';
         this.error = '';
         this.isLoading = false;
-
-        // Réinitialiser l'état ou rediriger vers login
         this.step = 'requestCode';
         this.email = '';
         this.code = '';
         this.newPassword = '';
         this.confirmPassword = '';
-
-        this.router.navigate(['/login'])
+        this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.error('Erreur reset-password:', err);
         this.error = err.error?.message || 'Erreur lors de la réinitialisation';
         this.message = '';
         this.isLoading = false;
@@ -124,3 +115,4 @@ export class ForgotPasswordComponent {
     });
   }
 }
+

@@ -1,0 +1,72 @@
+<div class="formation-list-container">
+
+  <!-- === FORMULAIRE DE FILTRE === -->
+  <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="filter-form glass mb-3">
+    <input formControlName="titre" placeholder="Filtrer par titre" />
+    <input formControlName="domaine" placeholder="Filtrer par domaine" />
+    <input formControlName="placeDispo" type="number" min="1" placeholder="Places disponibles ≥" />
+    <button type="submit" class="btn btn-filter glow-btn">
+      <i class="bi bi-funnel-fill"></i> Filtrer
+    </button>
+  </form>
+
+  <!-- === MESSAGE D’ERREUR === -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center fade-in-up">
+    {{ errorMessage }}
+  </div>
+
+  <!-- === LISTE DES FORMATIONS === -->
+  <ul class="formation-list fade-in-up">
+    <li *ngFor="let formation of formations" class="formation-item hover-card">
+      <div class="formation-info">
+        <strong>{{ formation.titre }}</strong> - <em>{{ formation.domaine }}</em>
+        <span class="orange-label">| Places: </span>
+        <span class="badge-green">{{ formation.placeDispo }}</span>
+      </div>
+
+      <div class="formation-actions">
+        <button type="button"
+                (click)="toggleDetails(formation)"
+                class="btn-icon info"
+                title="Détails">
+          <i class="bi bi-info-circle"></i> Plus
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <!-- === MODALE DÉTAILS (CENTRÉE AVEC ANIMATION) === -->
+  <div *ngIf="selectedFormation" class="xmodal-overlay fade-in-blur">
+    <div class="xmodal-content fade-in-scale">
+      <button (click)="closeDetails()" class="close-btn" aria-label="Fermer">
+        <i class="bi bi-x-circle"></i>
+      </button>
+
+      <h3><i class="bi bi-journal-text"></i> Détails de la formation</h3>
+
+      <div class="formation-details">
+        <p><strong>ID:</strong> {{ selectedFormation._id }}</p>
+        <p><strong>Titre:</strong> {{ selectedFormation.titre }}</p>
+        <p><strong>Domaine:</strong> {{ selectedFormation.domaine }}</p>
+        <p><strong>Description:</strong> {{ selectedFormation.description }}</p>
+        <p><strong>Compétences visées:</strong> {{ selectedFormation.competenceVisee.join(', ') }}</p>
+        <p><strong>Date de début:</strong> {{ selectedFormation.dateDebut | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Date de fin:</strong> {{ selectedFormation.dateFin | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Places disponibles:</strong> <span class="badge-green">{{ selectedFormation.placeDispo }}</span></p>
+        <p><strong>Numéro de salle:</strong> {{ selectedFormation.numeroSalle }}</p>
+
+        <button (click)="onReserve(selectedFormation)"
+                class="btn btn-primary mt-3 glow-btn"
+                [disabled]="selectedFormation.placeDispo === 0">
+          Réserver
+        </button>
+
+        <div *ngIf="reservationMessage"
+             class="mt-3 alert alert-info fade-in-up text-center">
+          {{ reservationMessage }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

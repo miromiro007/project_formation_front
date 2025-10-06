@@ -1,0 +1,46 @@
+<div class="formation-create-grid">
+  <h2>Créer une nouvelle formation</h2>
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-grid">
+      <label>Titre
+        <input formControlName="titre" />
+      </label>
+
+      <label>Domaine
+        <input formControlName="domaine" />
+      </label>
+
+      <label>Numéro de salle
+        <input formControlName="numeroSalle" />
+      </label>
+
+      <label>Description
+        <textarea formControlName="description"></textarea>
+      </label>
+
+      <label>Compétences visées (séparez par des virgules)
+        <input formControlName="competenceVisee" />
+      </label>
+
+      <label>Date de début
+        <input type="date" formControlName="dateDebut" />
+      </label>
+
+      <label>Date de fin
+        <input type="date" formControlName="dateFin" />
+      </label>
+
+      <label>Places disponibles
+        <input type="number" min="1" formControlName="placeDispo" />
+      </label>
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit" [disabled]="createForm.invalid">Créer</button>
+      <button type="button" (click)="onCancel()">Annuler</button>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  </form>
+</div>

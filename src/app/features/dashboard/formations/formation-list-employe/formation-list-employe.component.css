@@ -1,0 +1,202 @@
+/* === CONTAINER PRINCIPAL === */
+.formation-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem auto;
+  max-width: 1100px;
+  width: 95%;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* === FORMULAIRE DE FILTRE === */
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(255, 123, 0, 0.25);
+  width: 100%;
+}
+
+.filter-form input {
+  background: #1d1b20;
+  border: 2px solid #ff7b00;
+  border-radius: 10px;
+  color: #ffb347;
+  padding: 0.6rem 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.filter-form input:focus {
+  border-color: #ffb347;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.4);
+}
+
+.btn-filter {
+  background: linear-gradient(135deg, #007bff, #00b4ff);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-filter:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 180, 255, 0.5);
+}
+
+/* === LISTE === */
+.formation-list {
+  margin-top: 1rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: #ff7b00 #1a1a1a;
+}
+.formation-list::-webkit-scrollbar { width: 8px; }
+.formation-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff7b00, #ffb347);
+  border-radius: 10px;
+}
+
+/* === ÉLÉMENTS === */
+.formation-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  margin-bottom: 0.8rem;
+  border-radius: 14px;
+  background: rgba(30, 30, 30, 0.9);
+  box-shadow: 0 0 12px rgba(255, 123, 0, 0.1);
+  transition: all 0.25s ease;
+}
+.hover-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  background: rgba(107, 71, 5, 0.95);
+  box-shadow: 0 0 25px rgba(255, 123, 0, 0.25);
+}
+
+/* === INFO === */
+.formation-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.orange-label { color: #ff7b00; font-weight: 600; }
+.badge-green {
+  background: #25d366;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 2px 8px;
+}
+
+/* === ACTIONS === */
+.formation-actions .btn-icon {
+  background: none;
+  border: none;
+  color: #ffb347;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 1.2rem;
+}
+.formation-actions .btn-icon:hover {
+  transform: scale(1.2);
+  color: #00ffb3;
+}
+
+/* === MODALE === */
+.xmodal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.xmodal-content {
+  background: rgba(25, 22, 30, 0.98);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  max-width: 650px;
+  width: 90%;
+  text-align: left;
+  box-shadow: 0 0 40px rgba(255, 123, 0, 0.4);
+  transform: scale(0.9);
+  animation: fadeInScale 0.5s ease forwards;
+}
+
+/* === BOUTON FERMER === */
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: #ffb347;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.close-btn:hover {
+  color: #ff7b00;
+  transform: rotate(90deg);
+}
+
+/* === DETAILS === */
+.formation-details p {
+  margin: 0.4rem 0;
+  line-height: 1.5;
+}
+.formation-details strong {
+  color: #ffb347;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-blur {
+  animation: fadeInBlur 0.4s ease;
+}
+@keyframes fadeInBlur {
+  from { opacity: 0; filter: blur(6px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .filter-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .formation-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

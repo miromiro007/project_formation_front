@@ -1,46 +1,67 @@
-<div class="register-container">
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
-    <div>
-      <label for="nom">Nom complet</label>
-      <input id="nom" formControlName="nom" [class.invalid]="submitted && f['nom'].errors" />
-      <div *ngIf="submitted && f['nom'].errors" class="error">
-        Le nom est requis.
-      </div>
+<div class="register-page d-flex align-items-center justify-content-center min-vh-100">
+  <div class="register-card shadow-lg animate__animated animate__fadeInUp">
+    <!-- Logo -->
+    <div class="text-center mb-4">
+      <img src="../../../../assets/images/logo.png" alt="Logo" class="login-logo" />
     </div>
 
-    <div>
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" [class.invalid]="submitted && f['email'].errors" />
-      <div *ngIf="submitted && f['email'].errors" class="error">
-        <div *ngIf="f['email'].errors['required']">L’email est requis.</div>
-        <div *ngIf="f['email'].errors['email']">Le format d’email est invalide.</div>
+    <h3 class="text-center mb-4 fw-bold">Créer un compte</h3>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="form-columns d-flex flex-wrap gap-4">
+
+        <!-- Colonne gauche: Nom + Email -->
+        <div class="form-column flex-fill">
+          <div class="mb-3">
+            <label for="nom" class="form-label">Nom complet</label>
+            <input id="nom" formControlName="nom" class="form-control"
+              [class.is-invalid]="submitted && f['nom'].errors" placeholder="Entrez votre nom complet" />
+            <div *ngIf="submitted && f['nom'].errors" class="invalid-feedback">Le nom est requis.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" formControlName="email" class="form-control"
+              [class.is-invalid]="submitted && f['email'].errors" placeholder="Entrez votre email" />
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].errors['required']">L’email est requis.</div>
+              <div *ngIf="f['email'].errors['email']">Le format d’email est invalide.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne droite: Rôle + Mot de passe -->
+        <div class="form-column flex-fill">
+          <div class="mb-3">
+            <label for="role" class="form-label">Rôle</label>
+            <select id="role" formControlName="role" class="form-select"
+              [class.is-invalid]="submitted && f['role'].errors">
+              <option value="" disabled selected>Sélectionner un rôle</option>
+              <option value="employe">Employé</option>
+              <option value="admin">Admin</option>
+            </select>
+            <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">Le rôle est requis.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" id="password" formControlName="password" class="form-control"
+              [class.is-invalid]="submitted && f['password'].errors" placeholder="Entrez votre mot de passe" />
+            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+              <div *ngIf="f['password'].errors['required']">Le mot de passe est requis.</div>
+              <div *ngIf="f['password'].errors['minlength']">Minimum 6 caractères requis.</div>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
 
-    <div>
-      <label for="password">Mot de passe</label>
-      <input type="password" id="password" formControlName="password" [class.invalid]="submitted && f['password'].errors" />
-      <div *ngIf="submitted && f['password'].errors" class="error">
-        <div *ngIf="f['password'].errors['required']">Le mot de passe est requis.</div>
-        <div *ngIf="f['password'].errors['minlength']">Minimum 6 caractères requis.</div>
+      <button type="submit" class="btn btn-primary w-100 mt-4">S’inscrire</button>
+
+      <div class="text-center mt-3">
+        <button type="button" class="btn btn-link" (click)="goToLogin()">Déjà un compte ? Se connecter</button>
       </div>
-    </div>
-
-    <div>
-      <label for="role">Rôle</label>
-      <select id="role" formControlName="role" [class.invalid]="submitted && f['role'].errors">
-        <option value="" disabled>Sélectionner un rôle</option>
-        <option value="employe">Employé</option>
-        <option value="admin">Admin</option>
-      </select>
-      <div *ngIf="submitted && f['role'].errors" class="error">
-        Le rôle est requis.
-      </div>
-    </div>
-
-    <button type="submit">S’inscrire</button>
-
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-  </form>
+    </form>
+  </div>
 </div>

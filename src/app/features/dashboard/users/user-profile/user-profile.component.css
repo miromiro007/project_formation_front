@@ -1,0 +1,144 @@
+/* === CONTAINER === */
+.profile-card {
+  padding: 2rem;
+  border-radius: 20px;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  max-width: 550px;
+  width: 100%;
+  animation: fadeIn 0.6s ease;
+}
+
+/* === EFFET VERRE === */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 25px rgba(255, 123, 0, 0.15);
+}
+
+/* === HEADER === */
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.profile-header h2 {
+  font-size: 1.3rem;
+  color: #ff7b00;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #ff7b00;
+  transform: scale(1.2);
+}
+
+/* === INFO === */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.info-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.info-line:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* === ID + COPIE === */
+.id-line {
+  align-items: center;
+}
+
+.user-id {
+  flex: 1;
+  font-family: monospace;
+  color: #ccc;
+  margin: 0 0.6rem;
+  overflow-wrap: anywhere;
+}
+
+.copy-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+  background: #ff7b00;
+  box-shadow: 0 0 10px #ff7b00;
+}
+
+/* === BADGES === */
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.status-badge.actif {
+  background: rgba(0, 255, 0, 0.15);
+  color: #00ff84;
+}
+
+.status-badge.inactif {
+  background: rgba(255, 50, 50, 0.15);
+  color: #ff4c4c;
+}
+
+.text-success { color: #00ff84; }
+.text-danger { color: #ff4c4c; }
+
+/* === TOAST COPIE === */
+.copied-toast {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  background: #ff7b00;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #ff7b00;
+  animation: fadeInOut 1.5s ease;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(10px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(10px); }
+}

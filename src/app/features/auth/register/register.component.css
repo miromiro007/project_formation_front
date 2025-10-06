@@ -1,0 +1,143 @@
+@import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* Fond animé dark + orange */
+.register-page {
+ background:
+    linear-gradient(rgba(10, 10, 10, 0.9), rgba(20, 20, 20, 0.95)),
+    url('../../../../assets/images/bg_logo.png') no-repeat center center fixed;
+  background-size: cover;
+  animation: gradientMove 8s ease infinite alternate;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes gradientMove {
+  from { background-position: left top; }
+  to { background-position: right bottom; }
+}
+.login-logo {
+  height: 68px;
+  width: auto;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 12px rgba(255,123,0,0.15));
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  padding: 0.25rem;
+}
+
+/* Carte inscription */
+.register-card {
+  width: 100%;
+  max-width: 700px;
+  border-radius: 20px;
+  background: rgba(25, 25, 25, 0.95);
+  border-top: 5px solid #ff7b00;
+  border-right: 5px solid #ff7b00;
+  padding: 3rem;
+  box-shadow: 0 0 35px rgba(255, 123, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 50px rgba(255, 123, 0, 0.55);
+}
+
+/* Colonnes du formulaire */
+.form-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.form-column {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* Champs formulaire */
+.form-control,
+.form-select {
+  background-color: #222;
+  border: 1px solid #555;
+  color: #ff7b00;
+  border-radius: 12px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: #181818;
+  border-color: #ff7b00;
+  box-shadow: 0 0 0 0.25rem rgba(255, 123, 0, 0.3);
+  color : #ffffff
+}
+/* Pour tous les inputs et selects */
+.form-control::placeholder,
+.form-select::placeholder {
+  color: #ffffff; /* blanc, par exemple */
+  opacity: 0.1;      /* pour que la couleur soit bien visible */
+}
+
+
+/* Labels */
+label {
+  font-weight: 600;
+  color: #ccc;
+}
+
+/* Titre */
+h3 {
+  color: #ff7b00;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Bouton */
+.btn-primary {
+  border-radius: 50px;
+  background: linear-gradient(90deg, #ff7b00, #ff8c00);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.85rem;
+  box-shadow: 0 0 15px rgba(255,123,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #ff8c00, #ff7b00);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255,123,0,0.5);
+}
+
+/* Lien retour */
+.btn-link {
+  color: #ff7b00;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.btn-link:hover {
+  color: #ffa94d;
+  text-decoration: underline;
+}
+
+/* Feedback invalid */
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+.invalid-feedback {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+}

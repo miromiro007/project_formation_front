@@ -1,0 +1,22 @@
+<div class="reservation-container">
+
+  <!-- MESSAGE D'ERREUR OU AUCUNE RÉSERVATION -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center my-3">
+    <i class="bi bi-exclamation-triangle-fill"></i> {{ errorMessage }}
+  </div>
+
+  <!-- LISTE DES RÉSERVATIONS -->
+  <ul class="reservation-list" *ngIf="reservations.length > 0">
+    <li *ngFor="let res of reservations" class="reservation-item hover-card">
+      <div class="reservation-info">
+        <p><i class="bi bi-journal-text"></i> <strong>Formation:</strong> {{ res.formation.titre }}</p>
+        <p><i class="bi bi-calendar-check"></i> <strong>Date réservation:</strong> {{ res.dateReservation | date:'medium' }}</p>
+        <p>
+          <i class="bi bi-info-circle"></i> <strong>Statut:</strong>
+          <span class="status-badge" [ngClass]="res.status">{{ res.status | titlecase }}</span>
+        </p>
+      </div>
+    </li>
+  </ul>
+
+</div>

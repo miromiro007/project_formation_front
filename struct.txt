@@ -1,57 +1,55 @@
 src/
 │
 ├── app/
-│   ├── core/                       # Services globaux, interceptors, guards, modèles, utilitaires
+│   ├── core/                               # Services globaux, guards, interceptors, modèles, utilitaires
 │   │   ├── services/
 │   │   │   ├── auth.service.ts
 │   │   │   ├── user.service.ts
 │   │   │   ├── formation.service.ts
 │   │   │   ├── reservation.service.ts
 │   │   ├── guards/
-│   │   │   ├── auth.guard.ts           # Protection des routes
-│   │   │   ├── role.guard.ts           # Restriction par rôle (admin/employé)
+│   │   │   ├── auth.guard.ts               # Protection des routes
+│   │   │   ├── role.guard.ts               # Restriction par rôle (admin/employé)
 │   │   ├── interceptors/
-│   │   │   ├── token.interceptor.ts    # Ajout JWT aux requêtes HTTP
+│   │   │   ├── token.interceptor.ts        # Ajout JWT aux requêtes HTTP
 │   │   ├── models/
 │   │   │   ├── user.model.ts
 │   │   │   ├── formation.model.ts
 │   │   │   ├── reservation.model.ts
-│   │   ├── core.module.ts              # Importation unique pour les services singleton
+│   │   ├── core.module.ts                  # Regroupe les services singleton
 │
-│   ├── features/
-│   │   ├── auth/                      # Connexion, inscription, mot de passe oublié
+│   ├── features/                           # Modules fonctionnels regroupant interface et logique spécifique
+│   │   ├── auth/                          # Authentification (login, register, mot de passe oublié)
 │   │   │   ├── login/
 │   │   │   ├── register/
 │   │   │   ├── forgot-password/
 │   │   │   ├── auth-routing.module.ts
 │   │   │   ├── auth.module.ts
-│   │   ├── users/                     # Gestion de profils utilisateurs (admin + employé)
-│   │   │   ├── user-list/
-│   │   │   ├── user-profile/
-│   │   │   ├── user-update/
-│   │   │   ├── users-routing.module.ts
-│   │   │   ├── users.module.ts
-│   │   ├── formations/                # Listing, création, édition, suppression formations (admin)
-│   │   │   ├── formation-list/
-│   │   │   ├── formation-create/
-│   │   │   ├── formation-edit/
-│   │   │   ├── formations-routing.module.ts
-│   │   │   ├── formations.module.ts
-│   │   ├── reservations/              # Réservations (ajout, modification statut)
-│   │   │   ├── reservation-list/
-│   │   │   ├── reservation-create/
-│   │   │   ├── reservations-routing.module.ts
-│   │   │   ├── reservations.module.ts
-│
-│   ├── shared/                       # Composants, pipes, directives réutilisables
-│   │   ├── components/
-│   │   ├── pipes/
-│   │   ├── directives/
-│   │   ├── shared.module.ts
-│
-│   ├── app-routing.module.ts         # Routes principales regroupant tous les modules enfants
+│   │   ├── dashboard/                     # Tableau de bord principal
+│   │   │   ├── dashboard.component.ts
+│   │   │   ├── dashboard.module.ts
+│   │   │   ├── dashboard-routing.module.ts
+│   │   │   ├── users/                     # Gestion des utilisateurs (admin + employés)
+│   │   │   │   ├── user-list/
+│   │   │   │   ├── user-profile/
+│   │   │   │   ├── users-routing.module.ts
+│   │   │   │   ├── users.module.ts
+│   │   │   ├── formations/                # Gestion CRUD des formations
+│   │   │   │   ├── formation-list/
+│   │   │   │   ├── formation-create/
+│   │   │   │   ├── formation-edit/
+│   │   │   │   ├── formation-list_employe/
+│   │   │   │   ├── formations-routing.module.ts
+│   │   │   │   ├── formations.module.ts
+│   │   │   ├── reservations/              # Gestion des réservations
+│   │   │   │   ├── reservation-list/
+│   │   │   │   ├── reservation-list_employe/
+│   │   │   │   ├── reservations-routing.module.ts
+│   │   │   │   ├── reservations.module.ts
+│   ├── app-routing.module.ts           # Module de routage principal regroupant les routes de l'app
 │   ├── app.component.ts
-│   └── app.module.ts
+│   ├── app.module.ts
 │
 ├── assets/
+│
 ├── environments/

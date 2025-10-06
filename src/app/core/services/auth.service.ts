@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import {jwtDecode} from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';  // Correction d'importation pour jwt-decode
 
 interface LoginResponse {
   message: string;
@@ -22,30 +22,43 @@ export class AuthService {
   private apiUrl = 'http://localhost:3000/api';
   private baseUrl = 'http://localhost:3000';
   private tokenKey = 'authToken';
-  private currentUserSubject = new BehaviorSubject<any>(null)
+  private currentUserSubject = new BehaviorSubject<any>(null);
+  private loadingUserSubject = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient) {
     this.loadUserFromToken();
   }
 
- private loadUserFromToken() {
-    const token = this.getToken();
-    if (token) {
-      try {
-        const decoded: any = jwtDecode(token);
-        const exp = decoded.exp;
-        if (exp && Date.now() < exp * 1000) {
-          // Vérifie la clé où sont stockées les infos utilisateur dans ton token
-          const user = decoded.user || decoded.sub || null;
-          this.currentUserSubject.next(user);
-        } else {
-          this.logoutLocal();
-        }
-      } catch {
+  isLoadingUser(): Observable<boolean> {
+    return this.loadingUserSubject.asObservable();
+  }
+
+  private loadUserFromToken() {
+  this.loadingUserSubject.next(true);
+  const token = this.getToken();
+  if (token) {
+    try {
+      const decoded: any = jwtDecode(token);
+      const exp = decoded.exp;
+
+      if (exp && Date.now() < exp * 1000) {
+        // Extraction correcte des données utilisateur du token
+        const userData = decoded.user || {
+          id: decoded.id,
+          email: decoded.email,
+          nom: decoded.nom,
+          role: decoded.role
+        };
+        this.currentUserSubject.next(userData);
+      } else {
         this.logoutLocal();
       }
+    } catch {
+      this.logoutLocal();
     }
   }
+  this.loadingUserSubject.next(false);
+}
 
   login(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/userLogin/login`, { email, password }).pipe(
@@ -76,7 +89,7 @@ export class AuthService {
     );
   }
 
-  private logoutLocal() {
+  public logoutLocal() {
     localStorage.removeItem(this.tokenKey);
     this.currentUserSubject.next(null);
   }
@@ -102,26 +115,81 @@ export class AuthService {
     return this.currentUserSubject.asObservable();
   }
 
-register(userData: { nom: string; email: string; password: string; role: string }): Observable<any> {
-  return this.http.post<any>(`${this.apiUrl}/userRegister/register`, userData);
+  register(userData: { nom: string; email: string; password: string; role: string }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/userRegister/register`, userData);
+  }
+
+  validateResetCode(data: { email: string; code: string }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/validate-code`, data);
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/forgot-password`, { email });
+  }
+
+  resetPassword(data: { email: string; code: string; password: string; confirmPassword: string }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/reset-password`, data);
+  }
+
+  validateCode(data: { email: string; code: string }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/validate-code`, data);
+  }
+  //valider email Code
+
+  validateEmailCode(email: string, code: string): Observable<{ message: string }> {
+  return this.http.post<{ message: string }>(`${this.apiUrl}/userUpdate/validate-email`, { email, code });
 }
 
-validateResetCode(data: { email: string; code: string }): Observable<any> {
-  return this.http.post<any>(`${this.apiUrl}/validate-code`, data);
+
+ getCurrentUserValue(): any {
+    return this.currentUserSubject.value;
+  }
+  // Vérifier si l'utilisateur a un rôle spécifique
+  hasRole(role: string): boolean {
+    const user = this.getCurrentUserValue();
+    return user && user.role === role;
+  }
+
+  // Vérifier si l'utilisateur est authentifié ET a un token valide
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      const user = decoded.user || {
+        id: decoded.id,
+        email: decoded.email,
+        nom: decoded.nom,
+        role: decoded.role
+      };
+
+      // Mettre à jour l'utilisateur courant
+      this.currentUserSubject.next(user);
+
+      return true;
+    } catch {
+      this.logoutLocal();
+      return false;
+    }
+  }
+
+updateProfile(data: { email?: string; oldPassword: string; newPassword?: string }): Observable<any> {
+  const userId = this.getCurrentUserValue()?._id || this.getCurrentUserValue()?.id;
+  if (!userId) {
+    throw new Error('Utilisateur non connecté');
+  }
+
+  const payload: any = {
+    oldPassword: data.oldPassword,
+  };
+
+  if (data.email) {
+    payload.email = data.email; // Nouveau mail si changé
+  }
+  if (data.newPassword) {
+    payload.password = data.newPassword; // Nouveau mot de passe facultatif
+  }
+  return this.http.put<any>(`${this.apiUrl}/userUpdate/${userId}`, payload);
 }
-
-
-
-forgotPassword(email: string): Observable<any> {
-  return this.http.post<any>(`${this.baseUrl}/forgot-password`, { email });
-}
-
-validateCode(data: { email: string; code: string }): Observable<any> {
-  return this.http.post<any>(`${this.baseUrl}/validate-code`, data);
-}
-
-resetPassword(data: { email: string; code: string; password: string; confirmPassword: string }): Observable<any> {
-  return this.http.post<any>(`${this.baseUrl}/reset-password`, data);
-}
-
 }

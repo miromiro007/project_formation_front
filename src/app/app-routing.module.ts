@@ -9,18 +9,18 @@ import { DashboardComponent } from './features/dashboard/dashboard/dashboard.com
 import { AuthGuard } from './core/guards/auth.guard';
 
 
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },// redirige /auth vers /auth/register
+  { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'validate-code', component: ValidateCodeComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
-  path: 'dashboard',
-  canActivate: [AuthGuard],
-  loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
+    path: 'dashboard',
+    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
-  { path: 'formations', loadChildren: () => import('./features/formations/formations.module').then(m => m.FormationsModule) },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: '/dashboard' }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

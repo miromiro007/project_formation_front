@@ -1,0 +1,93 @@
+/* === CONTAINER === */
+.reservation-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  width: 150%;
+  font-family: "Segoe UI", sans-serif;
+  color: #fff;
+}
+
+/* === LISTE DES RÉSERVATIONS === */
+.reservation-list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  max-height: 75vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ff7b00 #1a1a1a;
+}
+
+.reservation-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.reservation-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg,#ff7b00,#ffb347);
+  border-radius: 10px;
+}
+
+/* === CARTE RÉSERVATION === */
+.reservation-item {
+  width: 90%;
+  background: rgba(30, 30, 30, 0.95);
+  border-radius: 14px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 0 12px rgba(255,123,0,0.15);
+  transition: all 0.25s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  background: rgba(107,71,5,0.95);
+  box-shadow: 0 0 25px rgba(255,123,0,0.25);
+}
+
+/* === INFO RÉSERVATION === */
+.reservation-info p {
+  margin: 0.4rem 0;
+  line-height: 1.5;
+}
+.reservation-info strong {
+  color: #ffb347;
+}
+
+/* === BADGES STATUT === */
+.status-badge {
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.status-badge.en_attente { background:#ffc107; color:#1a1a1a; }
+.status-badge.confirmee { background:#25d366; color:#fff; }
+.status-badge.annulee { background:#ff4d4d; color:#fff; }
+
+/* === MESSAGE D'ERREUR === */
+.alert-danger {
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* === ANIMATION === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hover-card { animation: fadeIn 0.5s ease-out; }
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .reservation-item { padding: 0.8rem 1rem; }
+  .reservation-info p { font-size: 0.9rem; }
+}

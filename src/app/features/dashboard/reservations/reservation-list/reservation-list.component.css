@@ -1,0 +1,169 @@
+/* === CONTAINER PRINCIPAL === */
+.reservation-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  max-width: 1100px;
+  width: 95%;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* === FORMULAIRE DE FILTRE === */
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(30,30,30,0.85);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(255, 123, 0, 0.25);
+}
+
+.filter-form input,
+.filter-form select {
+  background: #1d1b20;
+  border: 2px solid #ff7b00;
+  border-radius: 10px;
+  color: #ffb347;
+  padding: 0.6rem 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.filter-form input:focus,
+.filter-form select:focus {
+  border-color: #ffb347;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.4);
+}
+
+.btn-filter {
+  background: linear-gradient(135deg, #007bff, #00b4ff);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-filter:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 180, 255, 0.5);
+}
+
+/* === LISTE DES RÉSERVATIONS === */
+.reservation-list {
+  margin-top: 1rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 0.6rem;
+  scrollbar-width: thin;
+  scrollbar-color: #ff7b00 #1a1a1a;
+}
+.reservation-list::-webkit-scrollbar { width: 8px; }
+.reservation-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff7b00, #ffb347);
+  border-radius: 10px;
+}
+
+/* === ÉLÉMENTS DE LISTE === */
+.reservation-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  margin-bottom: 0.8rem;
+  border-radius: 14px;
+  background: rgba(30,30,30,0.9);
+  box-shadow: 0 0 12px rgba(255, 123, 0, 0.1);
+  transition: all 0.25s ease;
+}
+.hover-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  background: rgba(107,71,5,0.95);
+  box-shadow: 0 0 25px rgba(255, 123, 0, 0.25);
+}
+
+/* === INFO RÉSERVATION === */
+.reservation-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.orange-label { color: #ff7b00; font-weight: 600; }
+.status-badge {
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.status-badge.en_attente { background: #ffc107; color: #1a1a1a; }
+.status-badge.confirmee { background: #25d366; color: #fff; }
+.status-badge.annulee { background: #ff4d4d; color: #fff; }
+
+/* === BOUTONS DETAILS === */
+.reservation-actions .btn-icon {
+  background: none;
+  border: none;
+  color: #ffb347;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 1.2rem;
+}
+.reservation-actions .btn-icon:hover { transform: scale(1.2); color: #00ffb3; }
+
+/* === MODALE DÉTAILS === */
+.xmodal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+.xmodal-content {
+  background: rgba(25,22,30,0.98);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  max-width: 650px;
+  width: 90%;
+  position: relative;
+  text-align: left;
+  box-shadow: 0 0 40px rgba(255, 123, 0, 0.3);
+}
+
+/* === CLOSE BUTTON === */
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: #ffb347;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.close-btn:hover { color: #ff7b00; transform: rotate(90deg); }
+
+/* === DETAILS CONTENT === */
+.reservation-details p { margin: 0.4rem 0; line-height: 1.5; }
+.reservation-details strong { color: #ffb347; }
+
+.reservation-actions-buttons button {
+  margin-right: 0.5rem;
+}
+
+/* === ANIMATION === */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in-up { animation: fadeIn 0.5s ease-out; }
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .filter-form { flex-direction: column; align-items: stretch; }
+  .reservation-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .reservation-actions-buttons { display: flex; flex-direction: column; gap: 0.5rem; }
+}

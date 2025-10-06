@@ -1,0 +1,96 @@
+<div class="formation-container">
+
+  <!-- === En-tête fixe avec filtres === -->
+  <div class="header-fixed glass">
+    <div class="header-actions">
+      <button (click)="onCreate()" class="btn-create glow-btn">
+        <i class="bi bi-plus-circle"></i> Nouvelle formation
+      </button>
+
+      <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="filter-form">
+        <input formControlName="titre" type="text" placeholder="Filtrer par titre" />
+        <input formControlName="domaine" type="text" placeholder="Filtrer par domaine" />
+        <input formControlName="placeDispo" type="number" min="1" placeholder="Places ≥" />
+        <button type="submit" class="btn-filter glow-btn">
+          <i class="bi bi-funnel-fill"></i> Filtrer
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- === Message d'erreur === -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <!-- === Liste des formations === -->
+  <div class="formation-list fade-in-up">
+    <ul>
+      <li *ngFor="let formation of formations" class="formation-item hover-card">
+        <div class="formation-info">
+          <strong>{{ formation.titre }}</strong>
+          <span class="domain-label">- {{ formation.domaine }}</span>
+          <span class="orange-label">| Places :</span>
+          <span class="badge badge-green">{{ formation.placeDispo }}</span>
+        </div>
+
+        <div class="formation-actions">
+          <button (click)="toggleDetails(formation)" class="btn-icon info" title="Détails">
+            <i class="bi bi-info-circle"></i>
+          </button>
+          <button (click)="onEdit(formation)" class="btn-icon edit" title="Modifier">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button (click)="onDelete(formation._id)" class="btn-icon delete" title="Supprimer">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- === MODALES CENTRÉES === -->
+  <div *ngIf="isCreating" class="xmodal-overlay">
+      <app-formation-create (close)="closeCreateForm()"></app-formation-create>
+  </div>
+
+  <div *ngIf="isEditing" class="xmodal-overlay">
+      <app-formation-edit [formation]="formationToEdit" (close)="closeEditForm()"></app-formation-edit>
+  </div>
+
+  <div *ngIf="selectedFormation" class="xmodal-overlay">
+    <div class="xmodal-content fade-in-up">
+      <button (click)="closeDetails()" class="close-btn" aria-label="Fermer">
+        <i class="bi bi-x-circle"></i>
+      </button>
+      <h3><i class="bi bi-journal-text"></i> Détails de la formation</h3>
+      <div class="formation-details">
+        <p><strong>Titre :</strong> {{ selectedFormation.titre }}</p>
+        <p><strong>Domaine :</strong> {{ selectedFormation.domaine }}</p>
+        <p><strong>Description :</strong> {{ selectedFormation.description || 'Non spécifiée' }}</p>
+        <p><strong>Compétences visées :</strong>
+          <span *ngIf="selectedFormation.competenceVisee; else noCompetences">
+            {{ selectedFormation.competenceVisee.join(', ') }}
+          </span>
+          <ng-template #noCompetences>Non spécifiées</ng-template>
+        </p>
+        <p><strong>Date de début :</strong> {{ selectedFormation.dateDebut | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Date de fin :</strong> {{ selectedFormation.dateFin | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Places disponibles :</strong>
+          <span [ngClass]="{'badge-green': selectedFormation.placeDispo > 0}">
+            {{ selectedFormation.placeDispo }}
+          </span>
+        </p>
+        <p><strong>Numéro de salle :</strong> {{ selectedFormation.numeroSalle || 'Non spécifié' }}</p>
+
+        <div class="id-section">
+          <strong>ID :</strong>
+          <span class="id-text">{{ selectedFormation._id }}</span>
+          <button class="copy-btn" (click)="copyId(selectedFormation._id)">
+            <i class="bi bi-clipboard-check"></i> Copier l’ID
+          </button>
+        </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,68 @@
+<div class="formation-edit-grid">
+  <h2>Modifier la formation</h2>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-grid">
+      <!-- Titre -->
+      <label>
+        Titre
+        <input formControlName="titre" placeholder="Ex: Développement Full Stack" />
+      </label>
+
+      <!-- Domaine -->
+      <label>
+        Domaine
+        <input formControlName="domaine" placeholder="Ex: Informatique" />
+      </label>
+
+      <!-- Numéro de salle -->
+      <label>
+        Numéro de salle
+        <input formControlName="numeroSalle" placeholder="Ex: Salle A302" />
+      </label>
+
+      <!-- Description -->
+      <label class="full-col">
+        Description
+        <textarea formControlName="description" placeholder="Décrivez la formation..."></textarea>
+      </label>
+
+      <!-- Compétences visées -->
+      <label class="full-col">
+        Compétences visées (séparez par des virgules)
+        <input formControlName="competenceVisee" placeholder="JavaScript, Angular, Node.js" />
+      </label>
+
+      <!-- Date de début -->
+      <label>
+        Date de début
+        <input type="date" formControlName="dateDebut" />
+      </label>
+
+      <!-- Date de fin -->
+      <label>
+        Date de fin
+        <input type="date" formControlName="dateFin" />
+      </label>
+
+      <!-- Places disponibles -->
+      <label>
+        Places disponibles
+        <input type="number" min="1" formControlName="placeDispo" />
+      </label>
+    </div>
+
+    <!-- Boutons -->
+    <div class="form-buttons">
+      <button type="submit" [disabled]="editForm.invalid" class="btn-create">
+        <i class="bi bi-save"></i> Enregistrer
+      </button>
+      <button type="button" (click)="onCancel()" class="btn-filter">
+        Annuler
+      </button>
+    </div>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  </form>
+</div>

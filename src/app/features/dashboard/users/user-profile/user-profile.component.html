@@ -1,0 +1,47 @@
+<div class="profile-card glass">
+  <div class="profile-header">
+    <h2><i class="bi bi-person-badge"></i> Profil de {{ user.nom }}</h2>
+    <button class="close-btn" (click)="fermer()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="profile-info">
+    <div class="info-line id-line">
+      <strong>ID :</strong>
+      <span class="user-id">{{ user._id }}</span>
+      <button class="copy-btn" (click)="copierId(user._id)" title="Copier l'ID">
+        <i class="bi bi-clipboard"></i>
+      </button>
+    </div>
+
+    <div class="info-line"><strong>Nom :</strong> {{ user.nom }}</div>
+    <div class="info-line"><strong>Email :</strong> {{ user.email }}</div>
+    <div class="info-line"><strong>Rôle :</strong> {{ user.role | titlecase }}</div>
+    <div class="info-line"><strong>Compétences :</strong> {{ user.competence.join(', ') || 'Aucune' }}</div>
+
+    <div class="info-line">
+      <strong>Statut :</strong>
+      <span class="status-badge" [ngClass]="user.statut">{{ user.statut | titlecase }}</span>
+    </div>
+
+    <div class="info-line">
+      <strong>Email vérifié :</strong>
+      <span [ngClass]="{ 'text-success': user.emailVerified, 'text-danger': !user.emailVerified }">
+        {{ user.emailVerified ? 'Oui' : 'Non' }}
+      </span>
+    </div>
+
+    <div class="info-line">
+      <strong>En ligne :</strong>
+      <span [ngClass]="{ 'text-success': user.enLigne, 'text-danger': !user.enLigne }">
+        {{ user.enLigne ? 'Oui' : 'Non' }}
+      </span>
+    </div>
+
+    <div class="info-line"><strong>Créé le :</strong> {{ user.createdAt | date: 'medium' }}</div>
+    <div class="info-line"><strong>Mis à jour le :</strong> {{ user.updatedAt | date: 'medium' }}</div>
+  </div>
+
+  <div *ngIf="copied" class="copied-toast">ID copié !</div>
+</div>

@@ -1,10 +1,18 @@
+export type UserRole = 'admin' | 'employe'; // selon tes rôles
+export type UserStatus = 'actif' | 'inactif' | 'en_attente';
+
 export interface User {
-  id: string;
+  _id: string;
   nom: string;
   email: string;
-  role: 'employe' | 'admin';
-  competence?: string[];
-  statut: 'en_attente' | 'actif' | 'inactif';
+  password: string; // Attention à ne pas afficher dans UI !
+  role: UserRole;
+  competence: string[];
+  statut: UserStatus;
+  validationCode?: string | null;
+  validationCodeExpires?: Date | null;
   emailVerified: boolean;
   enLigne: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

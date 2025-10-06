@@ -1,0 +1,84 @@
+/* === Animation d’apparition === */
+@keyframes fadeInProfile {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Formulaire Modifier Profil === */
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  width: 350px;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeInProfile 0.6s ease;
+}
+
+/* === Label === */
+.edit-profile-form label {
+  font-weight: 600;
+  color: #ffb347;
+  text-shadow: 0 0 10px rgba(255, 123, 0, 0.4);
+  margin-bottom: -0.5rem;
+}
+
+/* === Champs de saisie === */
+.edit-profile-form input {
+  background: rgba(40, 40, 40, 0.95);
+  border: 2px solid #ff7b00;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.edit-profile-form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.edit-profile-form input:focus {
+  border-color: #ffb347;
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.5);
+  transform: scale(1.02);
+}
+
+/* === Boutons (Mettre à jour & Fermer) === */
+.edit-profile-form button,
+.update-profile-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff7b00, #e96c00);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.4);
+}
+
+.edit-profile-form button:hover,
+.update-profile-btn:hover {
+  background: linear-gradient(135deg, #ffa200, #ff7b00);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 20px rgba(255, 150, 0, 0.6);
+  color: #000;
+}
+
+/* === Message d’erreur === */
+.error-text {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-top: -0.8rem;
+  font-weight: 500;
+}

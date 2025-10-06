@@ -1,0 +1,77 @@
+<div class="reservation-container">
+
+  <!-- FORMULAIRE DE FILTRE -->
+  <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="filter-form glass mb-3">
+    <input formControlName="employeId" placeholder="Filtrer par employé ID" />
+    <input formControlName="formationId" placeholder="Filtrer par formation ID" />
+
+    <select formControlName="statusFilter">
+      <option value="">Tous les statuts</option>
+      <option value="en_attente">En attente</option>
+      <option value="confirmee">Confirmée</option>
+      <option value="annulee">Annulée</option>
+    </select>
+
+    <button type="submit" class="btn btn-filter glow-btn">
+      <i class="bi bi-funnel-fill"></i> Filtrer
+    </button>
+  </form>
+
+  <!-- MESSAGE D'ERREUR -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+
+  <!-- LISTE DES RÉSERVATIONS -->
+  <ul class="reservation-list">
+    <li *ngFor="let res of filteredReservations" class="reservation-item hover-card">
+      <div class="reservation-info">
+        <strong>{{ res.formation.titre }}</strong>
+        <span class="orange-label">| Employé: </span> {{ res.employe.nom }}
+        <span class="status-badge" [ngClass]="res.status">{{ res.status | titlecase }}</span>
+      </div>
+      <div class="reservation-actions">
+        <button (click)="showDetails(res)" class="btn-icon info" title="Détails">
+          <i class="bi bi-info-circle"></i>
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <!-- MODALE DÉTAILS -->
+  <div *ngIf="selectedReservation" class="xmodal-overlay">
+    <div class="xmodal-content fade-in-up">
+      <button (click)="closeDetails()" class="close-btn" aria-label="Fermer">
+        <i class="bi bi-x-circle"></i>
+      </button>
+      <h3><i class="bi bi-journal-text"></i> Détails de la réservation</h3>
+      <div class="reservation-details">
+        <p><strong>Formation:</strong> {{ selectedReservation.formation.titre }}</p>
+        <p><strong>Employé:</strong> {{ selectedReservation.employe.nom }} ({{ selectedReservation.employe.email }})</p>
+        <p><strong>Status:</strong> <span class="status-badge" [ngClass]="selectedReservation.status">{{ selectedReservation.status | titlecase }}</span></p>
+        <p><strong>Date:</strong> {{ selectedReservation.dateReservation | date:'medium' }}</p>
+
+        <div class="reservation-actions-buttons mt-3">
+          <button (click)="updateStatus(selectedReservation, 'confirmee')"
+                  class="btn btn-success"
+                  [disabled]="statusUpdateLoading || selectedReservation.status === 'confirmee'">
+            <i class="bi bi-check-circle"></i> Confirmer
+          </button>
+
+          <button (click)="updateStatus(selectedReservation, 'annulee')"
+                  class="btn btn-danger"
+                  [disabled]="statusUpdateLoading || selectedReservation.status === 'annulee'">
+            <i class="bi bi-x-circle"></i> Annuler
+          </button>
+
+          <button (click)="deleteReservation(selectedReservation)" class="btn btn-outline-danger">
+            <i class="bi bi-trash-fill"></i> Supprimer
+          </button>
+
+          <button (click)="closeDetails()" class="btn btn-secondary">
+            <i class="bi bi-x-lg"></i> Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

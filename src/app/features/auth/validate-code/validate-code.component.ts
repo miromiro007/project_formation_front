@@ -37,16 +37,24 @@ export class ValidateCodeComponent implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
-    if (this.validateForm.invalid) return;
+    if (this.validateForm.invalid) {
+      console.log('Formulaire invalide', this.validateForm.value);
+      return;
+    }
 
-    this.authService.validateCode(this.validateForm.value).subscribe({
+    console.log('Données envoyées:', this.validateForm.value);
+
+    // Appeler validateEmailCode au lieu de validateCode ici
+    this.authService.validateEmailCode(this.validateForm.value.email, this.validateForm.value.code).subscribe({
       next: res => {
+        console.log('Réponse succès:', res);
         this.successMessage = res.message;
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 3000);
       },
       error: err => {
+        console.error('Erreur validation code:', err);
         this.errorMessage = err.error?.message || 'Code invalide';
       }
     });

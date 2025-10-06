@@ -1,0 +1,130 @@
+/* === CONTAINER PRINCIPAL === */
+.formation-edit-grid {
+  background: #1e1e1ef2;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255, 123, 0, 0.3);
+  width: 100%;
+  margin: auto;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  text-align: center;
+}
+
+.formation-edit-grid h2 {
+  color: #ffb347;
+  margin-bottom: 1.5rem;
+}
+
+/* GRID 3 COLONNES */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem 1.5rem;
+}
+
+.form-grid label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #ffb347;
+  font-size: 0.95rem;
+}
+
+.form-grid input,
+.form-grid textarea {
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  border: 2px solid #ff7b00;
+  background: #1d1b20;
+  color: #ffb347;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.form-grid input:focus,
+.form-grid textarea:focus {
+  border-color: #ffb347;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.4);
+}
+
+.form-grid textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Champs full-col (Description et compétences) */
+.form-grid .full-col {
+  grid-column: span 3;
+}
+
+/* BOUTONS */
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.form-buttons button {
+  padding: 0.7rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-create {
+  background: #ff7b00;
+  color: #fff;
+  box-shadow: 0 0 18px rgba(255, 123, 0, 0.3);
+}
+
+.btn-create:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 150, 0, 0.5);
+}
+
+.btn-filter {
+  background: #1d1b20;
+  color: #ff7b00;
+  border: 2px solid #ff7b00;
+}
+
+.btn-filter:hover {
+  background: #ff0000;
+  color: #111;
+  transform: scale(1.05);
+}
+
+/* ALERT */
+.alert {
+  margin-top: 1rem;
+  background: #ff4d4d;
+  color: #fff;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 950px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .form-grid .full-col {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 650px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-grid .full-col {
+    grid-column: span 1;
+  }
+}

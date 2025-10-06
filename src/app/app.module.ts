@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
-
+import { DashboardModule } from './features/dashboard/dashboard.module';
 
 
 @NgModule({
@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    DashboardModule,
   ],
   providers: [{
       provide: HTTP_INTERCEPTORS,

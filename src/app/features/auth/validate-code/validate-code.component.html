@@ -1,36 +1,49 @@
-<div class="validate-container">
-  <form [formGroup]="validateForm" (ngSubmit)="onSubmit()" novalidate>
-    <div>
-      <label for="email">Email</label>
-      <input
-        id="email"
-        type="email"
-        formControlName="email"
-        [class.invalid]="submitted && f['email'].errors"
-      />
-      <div *ngIf="submitted && f['email'].errors" class="error">
-        <div *ngIf="f['email'].errors['required']">L’email est requis.</div>
-        <div *ngIf="f['email'].errors['email']">Le format d’email est invalide.</div>
-      </div>
+<div class="validate-code-page d-flex align-items-center justify-content-center min-vh-100">
+  <div class="validate-code-card shadow-lg animate__animated animate__fadeInUp">
+    <!-- Logo -->
+    <div class="text-center mb-4">
+      <img src="../../../../assets/images/logo.png" alt="Logo" class="login-logo" />
     </div>
 
-    <div>
-      <label for="code">Code de validation</label>
-      <input
-        id="code"
-        type="text"
-        formControlName="code"
-        [class.invalid]="submitted && f['code'].errors"
-      />
-      <div *ngIf="submitted && f['code'].errors" class="error">
-        Le code de validation est requis.
+    <h3 class="text-center mb-4 fw-bold">Valider le code</h3>
+
+    <form [formGroup]="validateForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-control"
+          [class.is-invalid]="submitted && f['email'].errors"
+          placeholder="Entrez votre email"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <div *ngIf="f['email'].errors['required']">L’email est requis.</div>
+          <div *ngIf="f['email'].errors['email']">Le format d’email est invalide.</div>
+        </div>
       </div>
-    </div>
 
-    <button type="submit">Valider le code</button>
+      <div class="mb-3">
+        <label for="code" class="form-label">Code de validation</label>
+        <input
+          id="code"
+          type="text"
+          formControlName="code"
+          class="form-control"
+          [class.is-invalid]="submitted && f['code'].errors"
+          placeholder="Entrez le code reçu"
+        />
+        <div *ngIf="submitted && f['code'].errors" class="invalid-feedback">
+          Le code de validation est requis.
+        </div>
+      </div>
 
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-  </form>
+      <button type="submit" class="btn btn-primary w-100">Valider le code</button>
+
+      <p *ngIf="errorMessage" class="invalid-feedback text-center mt-3">{{ errorMessage }}</p>
+      <p *ngIf="successMessage" class="text-success text-center mt-3">{{ successMessage }}</p>
+    </form>
+  </div>
 </div>
-

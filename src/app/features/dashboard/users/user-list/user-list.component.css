@@ -1,0 +1,222 @@
+/* === CONTAINER GLOBAL === */
+.users-container {
+  padding: 3rem;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(155deg, #1a1a1d, #26222b);
+}
+
+/* === EFFET VERRE === */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 25px rgba(255, 123, 0, 0.15);
+}
+
+/* === FILTRE === */
+.filter-section {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+}
+
+.filter-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #ff7b00;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.filter-input,
+.filter-select {
+  padding: 0.6rem 0.8rem;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  box-shadow: 0 0 8px #ff7b00;
+}
+
+.btn-filter {
+  background: #ff7b00;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 0.7rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-filter:hover {
+  background: #ff9b2f;
+  box-shadow: 0 0 15px #ff7b00;
+}
+
+/* === ALERTES === */
+.glow-alert {
+  text-align: center;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.5s ease;
+}
+
+.info {
+  background: rgba(0, 140, 255, 0.2);
+}
+
+.warning {
+  background: rgba(255, 123, 0, 0.2);
+}
+
+/* === CARTE UTILISATEUR === */
+.user-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1.5rem;
+}
+
+.user-card {
+  padding: 1.5rem;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(255, 123, 0, 0.3);
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.user-header i {
+  font-size: 2rem;
+  color: #ff7b00;
+}
+
+.user-basic h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.user-basic .email {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+.user-details {
+  margin-top: 0.8rem;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+
+.role {
+  color: #ff9b2f;
+}
+
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.status-badge.actif {
+  background: rgba(0, 255, 0, 0.15);
+  color: #00ff84;
+}
+
+.status-badge.inactif {
+  background: rgba(255, 50, 50, 0.15);
+  color: #ff4c4c;
+}
+
+/* === BOUTONS ACTION === */
+.user-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn-action {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: 0.3s;
+  color: #fff;
+}
+
+.btn-action.warning { background: rgba(255, 140, 0, 0.7); }
+.btn-action.success { background: rgba(0, 200, 100, 0.7); }
+.btn-action.danger { background: rgba(200, 0, 0, 0.7); }
+.btn-action.info { background: rgba(0, 150, 255, 0.7); }
+
+.btn-action:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px currentColor;
+}
+
+/* === MODALE PROFIL === */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  animation: fadeIn 0.4s ease;
+}
+
+.modal-content {
+  position: relative;
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 700px;
+  width: 90%;
+  color: #fff;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px; right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

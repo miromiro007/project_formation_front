@@ -1,31 +1,69 @@
-<div class="login-container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-    <div>
-      <label for="email">Email</label>
-      <input id="email" type="email" formControlName="email" [class.invalid]="submitted && f['email'].errors" />
-      <div *ngIf="submitted && f['email'].errors" class="error">
-        <div *ngIf="f['email'].errors['required']">L’email est requis.</div>
-        <div *ngIf="f['email'].errors['email']">Format d’email invalide.</div>
-      </div>
-    </div>
+<!-- login.component.html -->
+<div class="login-page d-flex align-items-center justify-content-center vh-100">
+  <div class="card login-card shadow-lg animate__animated animate__fadeInDown">
+    <div class="card-body p-5">
 
-    <div>
-      <label for="password">Mot de passe</label>
-      <input id="password" type="password" formControlName="password" [class.invalid]="submitted && f['password'].errors" />
-      <div *ngIf="submitted && f['password'].errors" class="error">
-        <div *ngIf="f['password'].errors['required']">Le mot de passe est requis.</div>
-      </div>
-    </div>
 
-    <button type="submit">Se connecter</button>
-
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-  </form>
-
-  <!-- Ajoutez ces boutons sous le formulaire de connexion -->
-<div class="login-actions">
-  <button type="button" (click)="goToRegister()">S'inscrire</button>
-  <button type="button" (click)="openForgotPasswordPage()">Mot de passe oublié</button>
+      <div class="text-center mb-3">
+  <img src="../../../../assets/images/logo.png" alt="Logo" class="login-logo" />
 </div>
+      <h3 class="text-center mb-4 fw-bold" style="color: #ff7b00;">Se connecter</h3>
 
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Adresse Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+            placeholder="Entrez votre email"
+          />
+          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+            <div *ngIf="f['email'].errors['required']">L’email est requis.</div>
+            <div *ngIf="f['email'].errors['email']">Format d’email invalide.</div>
+          </div>
+        </div>
+
+        <!-- Mot de passe -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+            placeholder="Entrez votre mot de passe"
+          />
+          <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+            <div *ngIf="f['password'].errors['required']">Le mot de passe est requis.</div>
+          </div>
+        </div>
+
+        <!-- Erreur globale -->
+        <div *ngIf="errorMessage" class="alert alert-danger text-center animate__animated animate__fadeIn">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Bouton de connexion -->
+        <button type="submit" class="btn btn-primary w-100 mt-3">
+          <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
+        </button>
+      </form>
+
+      <!-- Actions secondaires -->
+      <div class="login-actions mt-4 d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-secondary" (click)="goToRegister()">
+          <i class="bi bi-person-plus me-1"></i> S'inscrire
+        </button>
+        <button type="button" class="btn btn-link text-decoration-none" (click)="openForgotPasswordPage()">
+          <i class="bi bi-question-circle me-1"></i> Mot de passe oublié ?
+        </button>
+      </div>
+
+    </div>
+  </div>
 </div>
